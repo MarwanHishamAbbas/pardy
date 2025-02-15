@@ -1,11 +1,11 @@
-import { Badge, BadgeProps } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { getEventsForDashboard } from "@/utils/events";
 import { getCurrentUser } from "@/utils/users";
 import Link from "next/link";
 import { type FC } from "react";
 
 interface EventSlotProps {}
-const statusColors: any = {
+export const statusColors: any = {
   draft: "default",
   live: "secondary",
   started: "outline",

@@ -3,14 +3,27 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
+import { signout } from "@/actions/auth";
+import { useTransition } from "react";
+import { createNewEvent } from "@/actions/events";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
+
+  const createNewEventHandler = () => {
+    startTransition(async () => {
+      await createNewEvent();
+    });
+  };
 
   return (
     <div className="w-64  gap-10 shadow-md flex flex-col p-5">
       <h1 className="text-2xl font-bold">Pardy</h1>
       <nav className="flex-1 flex flex-col gap-2">
+        <Button onClick={createNewEventHandler} className="w-full ">
+          Create New Event
+        </Button>
         <NavLink href="/dashboard" pathname={pathname}>
           Dashboard
         </NavLink>
@@ -20,9 +33,14 @@ export default function Sidebar() {
         <NavLink href="/dashboard/rsvps" pathname={pathname}>
           RSVPs
         </NavLink>
+        <NavLink href="/dashboard/guests" pathname={pathname}>
+          Guests
+        </NavLink>
       </nav>
 
-      <Button className="w-full ">Sign Out</Button>
+      <Button onClick={() => signout()} className="w-full ">
+        Sign Out
+      </Button>
     </div>
   );
 }
