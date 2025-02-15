@@ -68,6 +68,7 @@ const seedDatabase = async () => {
       )
       .flat();
 
+    // @ts-ignore
     const newRSVPs = await db.insert(rsvps).values(data).returning();
     console.log("created rsvps ", newRSVPs.length);
   } catch (error) {
