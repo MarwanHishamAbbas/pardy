@@ -1,6 +1,6 @@
 "use client";
 
-import type { Metadata } from "next";
+import Sidebar from "@/components/Sidebar";
 import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
@@ -14,18 +14,23 @@ export default function DashboardLayout({
 }>) {
   const path = usePathname();
   return (
-    <div className="max-w-7xl mx-auto mt-10">
-      {path === "/dashboard" ? (
-        <div className="grid grid-cols-2 gap-10">
-          <div className=" ">{children}</div>
-          <div className=" flex flex-col gap-5">
-            <div className=" border w-full">{events}</div>
-            <div className=" border">{rsvps}</div>
-          </div>
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="max-w-7xl mx-auto w-full">
+        <div className=" mt-10 w-full">
+          {path === "/dashboard" ? (
+            <div className="grid grid-cols-3 w-full gap-10 border rounded">
+              <div>{children}</div>
+              <div className=" col-span-2">
+                <div className=" border w-full">{events}</div>
+                <div className=" border">{rsvps}</div>
+              </div>
+            </div>
+          ) : (
+            <div>{children}</div>
+          )}
         </div>
-      ) : (
-        <div>{children}</div>
-      )}
+      </div>
     </div>
   );
 }
